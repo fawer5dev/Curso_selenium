@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver import ActionChains
 
 
 class Funciones_Globales():
@@ -22,16 +23,29 @@ class Funciones_Globales():
         print("Página abierta: " + str(Url))
         t = time.sleep(Tiempo)
         return t
+    
+    def SEX (self, elemento):
+        # Wait for the element to become visible, then scroll to it and find it by xpath
+        val = WebDriverWait(self.driver, 5).until(
+                    EC.visibility_of_element_located((By.XPATH, elemento)))
+        val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
+        # Find the element
+        val = self.driver.find_element(By.XPATH, elemento)
+        return val
+    
+    def SEI (self, elemento):
+         # Wait for the element to become visible, then scroll to it and find it by ID
+        val = WebDriverWait(self.driver, 5).until(
+                    EC.visibility_of_element_located((By.ID, elemento)))
+        val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
+        # Find the element
+        val = self.driver.find_element(By.ID, elemento)
+        return val
 
     def Texto_Mixto(self, tipo, selector, texto, tiempo):
         if tipo == "xpath":
             try:
-                # Wait for the element to become visible, then scroll to it and find it by xpath
-                val = WebDriverWait(self.driver, 5).until(
-                    EC.visibility_of_element_located((By.XPATH, selector)))
-                val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
-                # Find the element
-                val = self.driver.find_element(By.XPATH, selector)
+                val = self.SEX(selector)
                 # Clear the text field and enter the desired text
                 val.clear()
                 val.send_keys(texto)
@@ -44,12 +58,7 @@ class Funciones_Globales():
                 return t
         elif tipo == "id":
             try:
-                # Wait for the element to become visible, then scroll to it and find it by ID
-                val = WebDriverWait(self.driver, 5).until(
-                    EC.visibility_of_element_located((By.ID, selector)))
-                self.driver.execute_script("arguments[0].scrollIntoView();", val)
-                # Find the element
-                val = self.driver.find_element(By.ID, selector)
+                val = self.SEI(selector)
                 # Clear the text field and enter the desired text
                 val.clear()
                 val.send_keys(texto)
@@ -64,12 +73,7 @@ class Funciones_Globales():
     def Click_Mixto(self, tipo, selector, tiempo):
         if tipo == "xpath":
             try:
-                # Wait for the element to become visible, then scroll to it and click it
-                val = WebDriverWait(self.driver, 5).until(
-                    EC.visibility_of_element_located((By.XPATH, selector)))
-                val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
-                # Find the element
-                val = self.driver.find_element(By.XPATH, selector)
+                val = self.SEX(selector)
                 val.click()
                 print("Dando click en {} -> {} ".format(selector, selector))
                 t = time.sleep(tiempo)
@@ -80,12 +84,7 @@ class Funciones_Globales():
                 return t
         elif tipo == "id":
             try:
-                # Wait for the element to become visible, then scroll to it and click it
-                val = WebDriverWait(self.driver, 5).until(
-                    EC.visibility_of_element_located((By.ID, selector)))
-                val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
-                # Find the element
-                val = self.driver.find_element(By.ID, selector)
+                val = self.SEI(selector)
                 val.click()
                 print("Dando click en {} -> {} ".format(selector, selector))
                 t = time.sleep(tiempo)
@@ -102,13 +101,7 @@ class Funciones_Globales():
     # Define a function to print a message when the test is finished
     def Select_Xpath_Type(self, xpath, tipo, dato, tiempo):
         try:
-            # Wait for the element to be visible
-            val = WebDriverWait(self.driver, 5).until(
-                EC.visibility_of_element_located((By.XPATH, xpath)))
-            # Wait for the element to be visible
-            val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
-            # Find the element
-            val = self.driver.find_element(By.XPATH, xpath)
+            val = self.SEX(dato)
             # Create a Select object
             val = Select(val)
             # Select the option based on the input type
@@ -130,13 +123,7 @@ class Funciones_Globales():
 
     def Select_ID_Type(self, id, tipo, dato, tiempo):
         try:
-            # Wait for the element to be visible
-            val = WebDriverWait(self.driver, 5).until(
-                EC.visibility_of_element_located((By.ID, id)))
-            # Scroll into view
-            val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
-            # Find the element
-            val = self.driver.find_element(By.ID, id)
+            val = self.SEI(dato)
             # Create a Select object
             val = Select(val)
             # Select the option based on the input type
@@ -156,13 +143,7 @@ class Funciones_Globales():
 
     def Upload_Xpath(self, xpath, ruta, tiempo):
         try:
-            # Wait for the element to be visible
-            val = WebDriverWait(self.driver, 5).until(
-                EC.visibility_of_element_located((By.XPATH, xpath)))
-            # Scroll into view
-            val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
-            # Find the element
-            val = self.driver.find_element(By.XPATH, xpath)
+            val = self.SEX(ruta)
             # Send the file path to the element
             val.send_keys(ruta)
             # Print a message indicating the image has been uploaded
@@ -178,13 +159,7 @@ class Funciones_Globales():
 
     def Upload_ID(self, id, ruta, tiempo):
         try:
-            # Wait for the element to be visible
-            val = WebDriverWait(self.driver, 5).until(
-                EC.visibility_of_element_located((By.ID, id)))
-            # Scroll into view
-            val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
-            # Find the element
-            val = self.driver.find_element(By.ID, id)
+            val = self.SEI(ruta)
             # Send the file path to the element
             val.send_keys(ruta)
             # Print a message indicating the image has been uploaded
@@ -200,13 +175,7 @@ class Funciones_Globales():
 
     def Check_Xpath(self, xpath, tiempo):
         try:
-            # Wait for the element to be visible
-            val = WebDriverWait(self.driver, 5).until(
-                EC.visibility_of_element_located((By.XPATH, xpath)))
-            # Scroll into view
-            val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
-            # Find the element
-            val = self.driver.find_element(By.XPATH, xpath)
+            val = self.SEX(xpath)
             # Click the element
             val.click()
             # Print a message indicating the element has been clicked
@@ -222,13 +191,7 @@ class Funciones_Globales():
 
     def Check_ID(self, id, tiempo):
         try:
-            # Wait for the element to be visible
-            val = WebDriverWait(self.driver, 5).until(
-                EC.visibility_of_element_located((By.ID, id)))
-            # Scroll into view
-            val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
-            # Find the element
-            val = self.driver.find_element(By.ID, id)
+            val = self.SEI(id)
             # Click the element
             val.click()
             # Print a message indicating the element has been clicked
@@ -248,14 +211,7 @@ class Funciones_Globales():
         try:
             # Loop through each argument in args
             for num in args:
-                # Use WebDriverWait to wait up to 5 seconds until the
-                # element specified by the XPATH in num is visible
-                val = WebDriverWait(self.driver, 5).until(
-                    EC.visibility_of_element_located((By.XPATH, num)))
-                # Scroll to the element
-                val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
-                # Find the element specified by the XPATH in num
-                val = self.driver.find_element(By.XPATH, num)
+                val = self.SEX(num)
                 # Click on the element
                 val.click()
                 # Print a message indicating which element was clicked
@@ -278,14 +234,7 @@ class Funciones_Globales():
         # If tipo is "xpath"
         if tipo == "xpath":
             try:
-                # Use WebDriverWait to wait up to 5 seconds until the
-                # element specified by the XPATH in selector is visible
-                val = WebDriverWait(self.driver, 5).until(
-                    EC.visibility_of_element_located((By.XPATH, selector)))
-                # Scroll to the element
-                val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
-                # Find the element specified by the XPATH in selector
-                val = self.driver.find_element(By.XPATH, selector)
+                val = self.SEX(selector)
                 # Print a message indicating that the element exists
                 print("El elemento  {} -> existe ".format(selector))
                 # Pause for tiempo seconds
@@ -303,14 +252,7 @@ class Funciones_Globales():
         # If tipo is "id"
         elif tipo == "id":
             try:
-                # Use WebDriverWait to wait up to 5 seconds until
-                # the element specified by the ID in selector is visible
-                val = WebDriverWait(self.driver, 5).until(
-                    EC.visibility_of_element_located((By.ID, selector)))
-                # Scroll to the element
-                val = self.driver.execute_script("arguments[0].scrollIntoView();", val)
-                # Find the element specified by the ID in selector
-                val = self.driver.find_element(By.ID, selector)
+                val = self.SEI(selector)
                 # Print a message indicating that the element exists
                 print("El elemento  {} -> existe ".format(selector))
                 # Pause for tiempo seconds
@@ -323,3 +265,32 @@ class Funciones_Globales():
                 print(ex.msg)
                 print("No se encontro el Elemento" + selector)
                 return "No Existe"
+    
+    def Mouse_Derecho(self, tipo, selector, tiempo=.2):
+        # If tipo is "xpath"
+        if tipo == "xpath":
+            try:
+                val = self.SEX(selector)
+                act = ActionChains(self.driver)
+                act.context_click(val).perform()
+                print("Dando click Derecho en {} -> {} ".format(selector, selector))
+                t = time.sleep(tiempo)
+                return t
+            except TimeoutException as ex:
+                print(ex.msg)
+                print("No se encontro el Elemento" + selector)
+                return t
+        # If tipo is "id"
+        elif tipo == "id":
+            try:
+                val = self.SEI(selector)
+                act = ActionChains(self.driver)
+                act.context_click(val).perform()
+                val.click()
+                print("Dando click Derecho en {} -> {} ".format(selector, selector))
+                t = time.sleep(tiempo)
+                return t
+            except TimeoutException as ex:
+                print(ex.msg)
+                print("No se encontro el Elemento" + selector)
+                return t

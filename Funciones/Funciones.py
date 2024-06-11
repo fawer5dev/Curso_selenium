@@ -273,7 +273,7 @@ class Funciones_Globales():
                 val = self.SEX(selector)
                 act = ActionChains(self.driver)
                 act.context_click(val).perform()
-                print("Dando click Derecho en {} -> {} ".format(selector, selector))
+                print("Dando click Derecho en {} -> {} ".format(selector))
                 t = time.sleep(tiempo)
                 return t
             except TimeoutException as ex:
@@ -287,10 +287,71 @@ class Funciones_Globales():
                 act = ActionChains(self.driver)
                 act.context_click(val).perform()
                 val.click()
-                print("Dando click Derecho en {} -> {} ".format(selector, selector))
+                print("Dando click Derecho en {} -> {} ".format(selector))
                 t = time.sleep(tiempo)
                 return t
             except TimeoutException as ex:
                 print(ex.msg)
                 print("No se encontro el Elemento" + selector)
+                return t
+    def Mouse_DragDrop(self, tipo, selector, destino, tiempo=.2):
+        # If tipo is "xpath"
+        if tipo == "xpath":
+            try:
+                val = self.SEX(selector)
+                val2 = self.SEX(destino)
+                act = ActionChains(self.driver)
+                act.drag_and_drop(val, val2).perform()
+                print("Se solto el elemento {} -> {} ".format(selector))
+                t = time.sleep(tiempo)
+                return t
+            except TimeoutException as ex:
+                print(ex.msg)
+                print("No Se solto el elemento" + selector)
+                return t
+        # If tipo is "id"
+        elif tipo == "id":
+            try:
+                val = self.SEI(selector)
+                val2 = self.SEI(destino)
+                act = ActionChains(self.driver)
+                act.drag_and_drop(val, val2).perform()
+                val.click()
+                print("Se solto el elemento {} -> {} ".format(selector))
+                t = time.sleep(tiempo)
+                return t
+            except TimeoutException as ex:
+                print(ex.msg)
+                print("No Se solto el elemento" + selector)
+                return t
+            
+    def Mouse_DragDropXY(self, tipo, selector, x, y, tiempo=.2):
+        # If tipo is "xpath"
+        if tipo == "xpath":
+            try:
+                self.driver.switch_to.frame(0)
+                val = self.SEX(selector)
+                act = ActionChains(self.driver)
+                act.drag_and_drop_by_offset(val, x, y).perform()
+                print("Se solto el elemento {} -> {} ".format(selector))
+                t = time.sleep(tiempo)
+                return t
+            except TimeoutException as ex:
+                print(ex.msg)
+                print("No Se solto el elemento" + selector)
+                return t
+        # If tipo is "id"
+        elif tipo == "id":
+            try:
+                self.driver.switch_to.frame(0)
+                val = self.SEI(selector)                
+                act = ActionChains(self.driver)
+                act.drag_and_drop_by_offset(val, x, y).perform()
+                val.click()
+                print("Se solto el elemento {} -> {} ".format(selector))
+                t = time.sleep(tiempo)
+                return t
+            except TimeoutException as ex:
+                print(ex.msg)
+                print("No Se solto el elemento" + selector)
                 return t

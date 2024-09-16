@@ -1,68 +1,70 @@
 # Selenium-Course
 
-Master: Selenium con Python Test Qa Automation (ESPAÑOL)
+**Master: Selenium with Python Test QA Automation (SPANISH)**
 
-Aprende Selenium, Webdriver,Python,BDD,Api,Postman,Jenkins,Selenium IDE,Unittest,Pytes, más de 100 ejemplos (EN ESPAÑOL)
+Learn Selenium, Webdriver, Python, BDD, API, Postman, Jenkins, Selenium IDE, Unittest, Pytest, and over 100 examples (IN SPANISH).
 
-* Aprenderás a utilizar el Framework de Selenium y Webdriver con Python para la creación de pruebas automatizadas de Principio a Fin
-* Crear tus pruebas desde Cero
-* Aprenderás Estrategias para mejorar tus pruebas
-* Crearas tus propias funciones y métodos para mejorar tus pruebas
-* Crear tus propios repositorios y subir tus Proyectos.
-* Aprenderás integración continua con Jenkins
-* Pruebas con BDD (Cocumber)
-* Pruebas en paralelo con Unittest y Pytes
-* Herramientas para Facilitar tus Pruebas
-* Carga de Archivos Externos Data Driver
-* Reporte desde Pytes y Allure Framework
+- You will learn to use the Selenium Framework and Webdriver with Python to create automated tests from start to finish.
+- Create your tests from scratch.
+- Learn strategies to improve your tests.
+- Create your own functions and methods to enhance your tests.
+- Set up your own repositories and upload your projects.
+- Learn continuous integration with Jenkins.
+- Perform BDD (Cucumber) tests.
+- Run tests in parallel with Unittest and Pytest.
+- Use tools to facilitate your tests.
+- Work with External Data Driver files.
+- Generate reports using Pytest and Allure Framework.
 
-**Descripción**<p>
-Selenium es un conjunto de herramientas que permiten la automatización de navegaciones Web. En general, esto tiene dos usos:
+## Description
 
-* Automatizar pruebas web.
-* Automatizar tareas web muy repetitivas.
+Selenium is a set of tools that enable the automation of web navigation. In general, it has two main uses:
 
-Existen distintas maneras de usarlo, algunas mejores y otras peores:
+- Automating web tests.
+- Automating highly repetitive web tasks.
 
-* Mediante el Selenium IDE.
-* Usando el driver adecuado.
-* Arrancando un servidor y conectándonos a él
-* En modo Hub.
-* Es muy fácil para comenzar y realizar algunas pruebas básicas.
-* Todo mediante clicks de ratón.
-* No es necesario un aprendizaje previo.
-* Fácil para comenzar a usar la API.
-* Permite organizar el código.
-* Abrirá el navegador adecuado.
-* Ofrece una API común a todos los navegadores.
+There are different ways to use it, some better than others:
 
-Servidor
+- Through Selenium IDE.
+- Using the appropriate driver.
+- Starting a server and connecting to it.
+- In Hub mode.
+- It's very easy to start and perform basic tests.
+- Everything is done with mouse clicks.
+- No prior learning is required.
+- Easy to start using the API.
+- It allows organizing the code.
+- It will open the appropriate browser.
+- Offers a common API for all browsers.
 
-Al arrancar el servidor y usar una API podremos obtener mayor control y realizar las pruebas en remoto. En estas pruebas podremos indicarle al servidor qué navegador queremos arrancar para ejecutar las pruebas.
+### Server
 
-Luego veremos cómo usar esta API.
+By starting the server and using an API, we can gain more control and perform remote tests. In these tests, we can instruct the server which browser to start to execute the tests.
 
-Ventajas:
+Later, we will see how to use this API.
 
-* Se puede utilizar de forma remota.
-* El servidor puede estar arrancado y abrirá el navegador adecuado.
-* El código se puede organizar como si fuera de producción. Esto también permite guardarlo en un DVCS.
+#### Advantages:
 
-Modo Hub
+- It can be used remotely.
+- The server can be started and will open the appropriate browser.
+- The code can be organized as if it were for production. This also allows it to be stored in a DVCS.
 
-En este caso lo que tenemos son servidores que se conectan a otro servidor principal, al que llamaremos Hub. Este Hub mantiene una lista ("pool") de tests que irá repartiendo entre sus “clientes”.
+### Hub Mode
 
-Esto permite utilizar distintas máquinas para ejecutar los tests de manera simultánea. Por lo demás, funciona igual que el modo servidor, y cualquier script que hayamos creado antes nos valdrá.
+In this case, we have servers connecting to a main server, which we will call the Hub. This Hub maintains a pool of tests that it distributes among its "clients."
 
-Ventajas:
+This allows various machines to run tests simultaneously. Otherwise, it works the same way as the server mode, and any scripts we’ve created before will still work.
 
-* Todas las del modo servidor
-* Puede ejecutar tantos scripts simultáneos como servidores se conecten a él.
+#### Advantages:
 
-¿Para quién es este curso?
-* Estudiantes con conocimientos básicos de la web y testing, pero sobre todo gente que quiera hacer pruebas automatizadas
-* Tester y QA
-* Arquitectos de Pruebas
-* Administradores de Sistemas
+- All the benefits of server mode.
+- It can run as many scripts simultaneously as servers connected to it.
 
-<url>https://www.udemy.com/course/master-selenium-webdriver-python-test-qa-automation/</url>
+## Who is this course for?
+
+- Students with basic knowledge of web and testing, especially those looking to perform automated testing.
+- Testers and QA professionals.
+- Test Architects.
+- System Administrators.
+
+<https://www.udemy.com/course/master-selenium-webdriver-python-test-qa-automation/>

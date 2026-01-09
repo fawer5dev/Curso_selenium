@@ -1,9 +1,13 @@
+# This script uses Selenium WebDriver with Chrome to automate browser navigation testing.
+# It opens several web pages, then uses JavaScript window.history.go() calls to move
+# backward and forward through the browser history before closing the browser.
+
 # Import the necessary modules from Selenium
 from selenium import webdriver
 import time
 
-# Create a Edge browser instance
-driver = webdriver.Edge()
+# Create a Chrome browser instance
+driver = webdriver.Chrome()
 t=3
 back="window.history.go(-1)"
 back2="window.history.go(2)"
@@ -12,14 +16,15 @@ back2="window.history.go(2)"
 driver.maximize_window()
 time.sleep(t)
 
-# Navigate to the module page on DemoQA
-driver.get('https://demoqa.com/text-box')
+# Navigate to the module page on testpages.herokuapp.com
+driver.get('https://testpages.herokuapp.com')
 time.sleep(t)
 
-#driver.get('https://testingqarvn.com.es/')
+# Navigate to Google
 driver.get('https://www.google.com.co/')
 time.sleep(t)
 
+# Navigate to Tohodo Autofill form page
 driver.get('https://www.tohodo.com/autofill/form.html')
 time.sleep(t)
 

@@ -1,37 +1,68 @@
+# Automated test script for filling out form fields on testpages.herokuapp.com using Selenium WebDriver
 # Import the necessary modules from Selenium
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException
 import time
 
 # Create a Edge browser instance
-# driver = webdriver.Chrome()
-driver = webdriver.Edge()
+driver = webdriver.Chrome()
 
 # Maximize the window
 driver.maximize_window()
 
-# Navigate to the module page on DemoQA
-driver.get('https://demoqa.com/text-box')
+# Navigate to the module page on testpages.herokuapp.com
+driver.get('https://testpages.herokuapp.com/pages/forms/text-inputs/')
 
-# Find the element with the 'userName' attribute XPath and enter the text xxx into it
-nom=driver.find_element(By.XPATH, "//input[@id='userName']")
-nom.send_keys("FAWER3")
-# Wait for 1 seconds
-time.sleep(1)
-# Find the element with the 'userEmail' attribute XPath nd enter the text xxx into it
-driver.find_element(By.XPATH, "//input[@id='userEmail']").send_keys("xxx@gmail.com")
-time.sleep(1)
-# Find the element with the 'currentAddress' attribute XPath and enter the text xxx into it
-driver.find_element(By.XPATH, "//textarea[@id='currentAddress']").send_keys("PRIMERA DIRECCION")
-time.sleep(1)
-# Find the element with the 'permanentAddress' attribute XPath and enter the text xxx into it
-driver.find_element(By.XPATH, "//textarea[@id='permanentAddress']").send_keys("SEGUNDA DIRECCION")
-# scroll down window
-driver.execute_script("window.scrollTo(0,300)")
+# Find the element with the 'text-input' attribute XPath and enter the text xxx into it
+nom=driver.find_element(By.XPATH, "//input[@id='text-input']")
+nom.send_keys("PEDRO PICAPIEDRA")
+# Scroll smoothly to the URL input element to ensure visibility
+driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", nom)
+# Wait for 0.5 seconds
+time.sleep(0.5)
+# Find the element with the 'email-input' attribute XPath nd enter the text xxx into it
+driver.find_element(By.XPATH, "//input[@id='email-input']").send_keys("xxx@gmail.com")
+time.sleep(0.5)
+# Find the element with the 'password-input' attribute XPath and enter the text xxx into it
+driver.find_element(By.XPATH, "//input[@id='password-input']").send_keys("CLAVE123")
+time.sleep(0.5)
+# Find the element with the 'url-input' attribute XPath and enter the text xxx into it
+url_input = driver.find_element(By.XPATH, "//input[@id='url-input']")
+url_input.send_keys("https://www.google.com/")
+time.sleep(0.5)
+# Scroll smoothly to the URL input element to ensure visibility
+driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", url_input)
 
-# Find the element with the 'submit' XPath attribute and send data
-driver.find_element(By.XPATH, "//button[@id='submit']").click()
+# Wait for the submit button to be clickable, scroll into view and click.
+try:
+    submit = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[type='submit']")))
+    # Smooth scroll to submit button with center alignment
+    driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", submit)
+    time.sleep(1)  # Brief pause for smooth scroll to complete
+    try:
+        # Use ActionChains for more reliable clicking
+        actions = ActionChains(driver)
+        actions.move_to_element(submit).click().perform()
+    except ElementClickInterceptedException:
+        # Fallback: perform a JS click if another element overlays the button
+        driver.execute_script("arguments[0].click();", submit)
+    
+    # After submit, wait for results page and scroll to view submitted values
+    time.sleep(1)  # Wait for page to load results
+    # Scroll to top of page to see all submitted values
+    driver.execute_script("window.scrollTo({top: 0, behavior: 'smooth'});")
+    time.sleep(1)  # Pause to view results at top
+    # Then scroll down to see all results
+    driver.execute_script("window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});")
+    
+except TimeoutException:
+    print("Submit button was not clickable within the timeout.")
 
-time.sleep(5)
+# Wait for 3 seconds
+time.sleep(3)
 # Close the browser
 driver.close()

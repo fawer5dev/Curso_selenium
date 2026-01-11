@@ -21,6 +21,8 @@ driver.get('https://testpages.herokuapp.com/pages/forms/text-inputs/')
 # Find the element with the 'text-input' attribute XPath and enter the text xxx into it
 nom=driver.find_element(By.XPATH, "//input[@id='text-input']")
 nom.send_keys("PABLO MARMOL" + Keys.TAB)
+# Scroll smoothly to the URL input element to ensure visibility
+driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", nom)
 # Wait for 0.5 seconds
 time.sleep(0.5)
 # Find the element with the 'email-input' attribute XPath nd enter the text xxx into it
@@ -49,6 +51,14 @@ try:
     except ElementClickInterceptedException:
         # Fallback: perform a JS click if another element overlays the button
         driver.execute_script("arguments[0].click();", submit)
+    # After submit, wait for results page and scroll to view submitted values
+    time.sleep(1)  # Wait for page to load results
+    # Scroll to top of page to see all submitted values
+    driver.execute_script("window.scrollTo({top: 0, behavior: 'smooth'});")
+    time.sleep(1)  # Pause to view results at top
+    # Then scroll down to see all results
+    driver.execute_script("window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});")
+    # After submit, wait for results page and scroll to view submitted values       
 except TimeoutException:
     print("Submit button was not clickable within the timeout.")
 
